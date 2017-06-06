@@ -161,7 +161,7 @@ namespace ChatClient
 
             //this.IpBox.Text = "127.0.0.1";
             //this.IpBox.Text = "192.168.0.103";
-            this.IpBox.Text = Dns.GetHostAddresses("mocoronco.net.ru")[0].ToString();
+            this.IpBox.Text = Dns.GetHostAddresses("fedosov.net.ru")[0].ToString();
 
             this.PortBox.Text = "8888";
 			var rand = new Random();
