@@ -46,11 +46,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ChatForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Include="ClientNet.cs" />
-    <Compile Include="EnterWindow.cs">
+    <Compile Include="ChatForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Program.cs" />
