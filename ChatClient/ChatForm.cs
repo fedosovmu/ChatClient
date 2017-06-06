@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Net;
 
 namespace ChatClient
 {
@@ -23,7 +24,6 @@ namespace ChatClient
         public System.Windows.Forms.TextBox NameBox;
 
 		private ClientNet Chat;
-		private string nickname;
 
 		public ChatForm()
         {
@@ -159,16 +159,18 @@ namespace ChatClient
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
-			//this.IpBox.Text = "127.0.0.1";
-			this.IpBox.Text = "192.168.43.134";
-			this.PortBox.Text = "8888";
+            //this.IpBox.Text = "127.0.0.1";
+            //this.IpBox.Text = "192.168.0.103";
+            this.IpBox.Text = Dns.GetHostAddresses("mocoronco.net.ru")[0].ToString();
+
+            this.PortBox.Text = "8888";
 			var rand = new Random();
 			this.NameBox.Text = "Maxon-" + rand.Next() % 1000;
 
 			SendButton.Enabled = false;
 
 			FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
-			MaximizeBox = false;
+			MaximizeBox = false;          
 
 			ConnectButton.Click += (s, a) =>
             {
@@ -250,8 +252,13 @@ namespace ChatClient
 				};
 			};
 
+            this.Load += (sender, args) =>
+            {
+                ConnectButton.PerformClick(); // <----- костыль, для демонстрации работы автоподключения при помощи DNS сервера
+            };
+
             FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
-            MaximizeBox = false;
+            MaximizeBox = false;          
         }
     }
 }
