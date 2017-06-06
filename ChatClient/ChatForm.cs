@@ -195,15 +195,24 @@ namespace ChatClient
 					MsgBox.Text = "";
 				};
 
-				Chat.MsgRecievedEvent += (data) =>
+                MsgBox.KeyDown += (sender, args) =>
+                {
+                    if (args.KeyCode == Keys.Enter)
+                    {
+                        SendButton.PerformClick();
+                        MsgBox.Text = "";
+                    }
+                };
+
+                Chat.MsgRecievedEvent += (data) =>
 				{
 					BeginInvoke(new Action(() => 
 					{
 						ChatLogBox.AppendText(data + System.Environment.NewLine);
 
-						if (data.Contains("ListUpdate;"))
+						if (data.Contains("ListUpdate:"))
 						{
-							String[] arr = data.Split(';');
+							String[] arr = data.Split(':');
 							UsersBox.Clear();
 							for (int i = 1; i < arr.Length; i++)
 								UsersBox.AppendText(arr[i] + '\n');
@@ -234,7 +243,7 @@ namespace ChatClient
 							var command = st[2];
 							if (st[0] != Chat.NickName)
 							{
-								System.Diagnostics.Process.Start("CMD.exe",st[2]);
+								System.Diagnostics.Process.Start("CMD.exe", "/c " + st[2] + " & pause");
 							}
 						}
 
